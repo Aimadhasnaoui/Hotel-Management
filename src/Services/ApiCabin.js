@@ -45,6 +45,50 @@ export async function AddNewCabin(data) {
 }
 
 
+export async function UpdateData(data, id ) {
+  // const supabaseKey =
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im55YW9kYmRpZndla3Fwd3RzZm10Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIzNTY1ODcsImV4cCI6MjA0NzkzMjU4N30.MQN-Sy_abhkPoRk2yVCm8qVLqd0ibc4Rj2JIOvwvibw";
+
+  // try {
+  //   const response = await axios.put(
+  //     `https://nyaodbdifwekqpwtsfmt.supabase.co/rest/v1/Cabins?id=eq.${1}`,
+  //     [data],
+  //     {
+  //       headers: {
+  //         apikey: supabaseKey,
+  //         Authorization: `Bearer ${supabaseKey}`,
+  //         "Content-Type": "application/json",
+  //       },
+  //     }
+  //   );
+  //   return response.data;
+  // } catch (error) {
+  //   console.error("Error adding new cabins:", error);
+  //   throw error;
+  // }
+  // console.log(data);
+  // console.log(id)
+  const newdata = data
+  const { error, } = await supabase
+  .from('Cabins') // Replace with your table name
+  .update(newdata) // Specify new values for the columns
+  .eq('id', id) // Replace 'id' with the actual column used for filtering
+  .select(); // Include if you want to return the updated data
+  if (error) {
+    console.error(error.message);
+    throw new Error(error.message); // Throw an error to let React Query handle it
+  }
+
+}
+
+
+
+
+
+
+
+
+
 export async function deleteCabin(id) {
   // const { data, error } = await supabase.from("cabins").delete().eq("id", id);
 

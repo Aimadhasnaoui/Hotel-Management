@@ -23,7 +23,7 @@ export default function Cabins() {
   const  mutation = useMutation({
     mutationFn:(id)=>deleteCabin(id),
     onSuccess: async () => {
-      console.log("I'm first!")
+      queryClient.invalidateQueries(['cabins'])
     },
     onError: (error) => {
       console.log(`rolling back optimistic update with id ${error}`)
